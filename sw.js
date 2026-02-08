@@ -1,10 +1,10 @@
-const CACHE_NAME = 'medtracker-v2';
+const CACHE_NAME = 'medtracker-v3';
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/app.js',
-    '/manifest.json'
+    './',
+    './index.html',
+    './style.css',
+    './app.js',
+    './manifest.json'
 ];
 
 // Install
