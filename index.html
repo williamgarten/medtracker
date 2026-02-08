@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>MedTracker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>💊 MedTracker</h1>
+            <div class="date" id="currentDate"></div>
+        </header>
+
+        <main>
+            <section id="todaySection">
+                <h2>Today</h2>
+                <div id="todayMeds" class="med-list"></div>
+            </section>
+
+            <section id="historySection" class="hidden">
+                <h2>History</h2>
+                <div class="calendar-nav">
+                    <button class="nav-arrow" onclick="prevMonth()">←</button>
+                    <span id="calendarMonth">February 2026</span>
+                    <button class="nav-arrow" onclick="nextMonth()">→</button>
+                </div>
+                <div id="calendarView" class="calendar"></div>
+                <div id="weeklyStats" class="weekly-stats"></div>
+                <div id="dayDetail" class="day-detail hidden"></div>
+            </section>
+
+            <section id="settingsSection" class="hidden">
+                <h2>Medications</h2>
+                <div id="medSettings" class="med-settings"></div>
+                <button class="btn btn-add" onclick="showAddMed()">+ Add Medication</button>
+                
+                <h2 style="margin-top: 30px;">Notifications</h2>
+                <div class="notification-settings">
+                    <div class="setting-row">
+                        <span>Daily Reminders</span>
+                        <button id="notifBtn" class="btn btn-small" onclick="toggleNotifications()">Enable</button>
+                    </div>
+                    <div id="notifStatus" class="notif-status"></div>
+                </div>
+            </section>
+        </main>
+
+        <nav>
+            <button class="nav-btn active" data-section="todaySection" onclick="showSection('todaySection')">Today</button>
+            <button class="nav-btn" data-section="historySection" onclick="showSection('historySection')">History</button>
+            <button class="nav-btn" data-section="settingsSection" onclick="showSection('settingsSection')">Settings</button>
+        </nav>
+
+        <!-- Add/Edit Med Modal -->
+        <div id="addMedModal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="modalTitle">Add Medication</h3>
+                <input type="text" id="medName" placeholder="Medication name">
+                <div class="type-selector">
+                    <label>
+                        <input type="radio" name="medType" value="pill" checked> Pill
+                    </label>
+                    <label>
+                        <input type="radio" name="medType" value="shot"> Shot (units)
+                    </label>
+                </div>
+                <input type="number" id="defaultUnits" placeholder="Default units (for shots)" class="hidden">
+                <div class="modal-buttons">
+                    <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button class="btn btn-save" onclick="saveMed()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Shot Modal -->
+        <div id="logShotModal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="shotMedName">Log Shot</h3>
+                <input type="number" id="shotUnits" placeholder="Units">
+                <div class="modal-buttons">
+                    <button class="btn btn-cancel" onclick="closeLogModal()">Cancel</button>
+                    <button class="btn btn-save" onclick="logShot()">Log</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Day Modal -->
+        <div id="editDayModal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="editDayTitle">Edit Day</h3>
+                <div id="editDayMeds"></div>
+                <div class="modal-buttons">
+                    <button class="btn btn-cancel" onclick="closeEditDayModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
